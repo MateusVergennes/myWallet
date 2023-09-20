@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QtSql>
+#include <QFileInfo>//torna o banco de dados acessivel ao usuario,faz um backup do arquivo de recursos para um diretorio que o usuario acessa
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class myWallet; }
@@ -14,6 +17,13 @@ class myWallet : public QMainWindow
 
 public:
     myWallet(QWidget *parent = nullptr);
+
+    void start();
+    QString dir = ":/database/myWalletdb.db";
+    //QString user = home + "/.config/mytodo.db";
+    QString user = QCoreApplication::applicationDirPath() + "/myWalletdb.db";
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+
     ~myWallet();
 
 private slots:
