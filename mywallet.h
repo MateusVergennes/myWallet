@@ -2,6 +2,7 @@
 #define MYWALLET_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class myWallet; }
@@ -14,6 +15,11 @@ class myWallet : public QMainWindow
 public:
     myWallet(QWidget *parent = nullptr);
     ~myWallet();
+
+private slots:
+    void on_actionSair_triggered();
+
+    void on_actionSobre_N_s_triggered();
 
 private:
     Ui::myWallet *ui;
