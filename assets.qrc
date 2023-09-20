@@ -1,2 +1,7 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/">
+        <file>img/about.png</file>
+        <file>img/close.png</file>
+        <file>img/mytodo.png</file>
+    </qresource>
+</RCC>
