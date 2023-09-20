@@ -1,15 +1,27 @@
 #include "mywallet.h"
 #include "ui_mywallet.h"
 
-myWallet::myWallet(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::myWallet)
-{
+myWallet::myWallet(QWidget *parent): QMainWindow(parent), ui(new Ui::myWallet){
     ui->setupUi(this);
+
+    start();
+    db.setDatabaseName(user);
+    //se ele estiver aberto (arquivo encontrado), senao (falha)
+    !db.open() ? qDebug() << "Falha ao Encontrar o Arquivo do Banco: " + user : qDebug() << "Arquivo do Banco Encontrado com Sucesso!";
+
 }
 
-myWallet::~myWallet()
-{
+void myWallet::start(){
+    QFile quser(user);
+
+    if(!quser.exists()){//se o arquivo ainda n existir, vai copiar o db para o user
+        QFile::copy("/database/myWalletdb.db", user);//gravamos mas precisamos dar algumas permissoes para gravar a frente
+        QFile::setPermissions(user, QFile::WriteOwner | QFile::ReadOwner);
+        qDebug() << "O arquivo Inicial foi Copiado e as permissões de escrita foram definidas.";//dessa forma nosso bd esta presente no arquivo executavel também, e so vai copiar na 1ª vez
+    }
+}
+
+myWallet::~myWallet(){
     delete ui;
 }
 
