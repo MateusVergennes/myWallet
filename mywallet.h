@@ -19,9 +19,8 @@ public:
     myWallet(QWidget *parent = nullptr);
 
     void start();
-    QString dir = ":/database/myWalletdb.db";
     //QString user = home + "/.config/mytodo.db";
-    QString user = QCoreApplication::applicationDirPath() + "/myWalletdb.db";
+    QString user = QCoreApplication::applicationDirPath() + "/myWallet.db";
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 
     void listViewDados();

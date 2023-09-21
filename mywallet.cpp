@@ -15,10 +15,15 @@ myWallet::myWallet(QWidget *parent): QMainWindow(parent), ui(new Ui::myWallet){
 void myWallet::start(){
     QFile quser(user);
 
+
     if(!quser.exists()){//se o arquivo ainda n existir, vai copiar o db para o user
-        QFile::copy("/database/myWalletdb.db", user);//gravamos mas precisamos dar algumas permissoes para gravar a frente
-        QFile::setPermissions(user, QFile::WriteOwner | QFile::ReadOwner);
-        qDebug() << "O arquivo Inicial foi Copiado e as permissões de escrita foram definidas.";//dessa forma nosso bd esta presente no arquivo executavel também, e so vai copiar na 1ª vez
+        if (QFile::exists(":/database/myWallet.db")) {// Verifica se o arquivo de origem existe como um recurso incorporado
+            QFile::copy(":/database/myWallet.db", user);//gravamos mas precisamos dar algumas permissoes para gravar a frente
+            QFile::setPermissions(user, QFile::WriteOwner | QFile::ReadOwner);
+            qDebug() << "O arquivo Inicial foi Copiado e as permissões de escrita foram definidas.";//dessa forma nosso bd esta presente no arquivo executavel também, e so vai copiar na 1ª vez
+        }else{
+            qDebug() << "Falha ao encontrar o arquivo para Copia.";
+        }
     }
 }
 
@@ -40,12 +45,40 @@ void myWallet::on_actionSobre_N_s_triggered(){
 }
 
 void myWallet::listViewDados(){
-    QStringList infoList;
-    infoList << "Receita: R$ 1000 \n" << "Despesa: R$ 500";
+    QSqlQuery query;
+    QString sql = "SELECT * FROM expenses INNER JOIN categories ON expenses.category_id = categories.category_id";
+    query.prepare(sql);
 
-    QStringListModel *model = new QStringListModel(infoList);
+    if(query.exec()){
+        int i = 0;
 
-    // Configure o modelo de dados para o QListView existente
-    ui->listView->setModel(model);
+        ui->tableWidget->setColumnCount(5);//3 colunas(id, description, value)
+        while(query.next()){
+            ui->tableWidget->insertRow(i);//para mostrar os dados da linha
+
+            //setando as colunas (aba mais de cima)
+            ui->tableWidget->setItem(i, 0, new QTableWidgetItem(query.value(0).toString() ) );//Linha, coluna, valor como construtor //id // o new ja faz pegar o construtor
+            ui->tableWidget->setItem(i, 1, new QTableWidgetItem(query.value(1).toString() ) );//descricao
+            ui->tableWidget->setItem(i, 2, new QTableWidgetItem(query.value(2).toString() ) );//valor
+            ui->tableWidget->setItem(i, 3, new QTableWidgetItem(query.value(4).toString() ) );//data
+            ui->tableWidget->setItem(i, 4, new QTableWidgetItem(query.value(6).toString() ) );//name category
+
+            i++;
+        }
+    }else{
+        qDebug() << "Falha ao Consultar os Dados no Banco de Dados";
+    }
+
+
+    //definindo cabecalho
+    QStringList headers = {"ID", "Descrição", "Valor", "Data/Hora", "Categoria"};
+    ui->tableWidget->setHorizontalHeaderLabels(headers);
+
+    //para definir tamanho das Colunas:
+    ui->tableWidget->setColumnWidth(0, 60);//coluna 1 com 60 de largura
+    ui->tableWidget->setColumnWidth(1, 150);
+    ui->tableWidget->setColumnWidth(2, 150);
+    ui->tableWidget->setColumnWidth(3, 150);
+    ui->tableWidget->setColumnWidth(4, 150);
 }
 

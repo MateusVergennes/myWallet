@@ -95,13 +95,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QListView" name="listView">
+   <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>140</y>
-      <width>731</width>
-      <height>361</height>
+      <x>30</x>
+      <y>120</y>
+      <width>751</width>
+      <height>381</height>
      </rect>
     </property>
    </widget>
