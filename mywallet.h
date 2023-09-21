@@ -24,6 +24,8 @@ public:
     QString user = QCoreApplication::applicationDirPath() + "/myWalletdb.db";
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 
+    void listViewDados();
+
     ~myWallet();
 
 private slots:

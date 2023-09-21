@@ -9,6 +9,7 @@ myWallet::myWallet(QWidget *parent): QMainWindow(parent), ui(new Ui::myWallet){
     //se ele estiver aberto (arquivo encontrado), senao (falha)
     !db.open() ? qDebug() << "Falha ao Encontrar o Arquivo do Banco: " + user : qDebug() << "Arquivo do Banco Encontrado com Sucesso!";
 
+    listViewDados();
 }
 
 void myWallet::start(){
@@ -36,5 +37,15 @@ void myWallet::on_actionSobre_N_s_triggered(){
                                                    "<p>Desenvolvido por Mateus Vergennes <br>"
                                                    "Projeto de Carteira p/ Controle Financeiro de Qt com C++<br>"
                                                    "Copyright 2008-2023 Matt Systems Inc. </p>");
+}
+
+void myWallet::listViewDados(){
+    QStringList infoList;
+    infoList << "Receita: R$ 1000 \n" << "Despesa: R$ 500";
+
+    QStringListModel *model = new QStringListModel(infoList);
+
+    // Configure o modelo de dados para o QListView existente
+    ui->listView->setModel(model);
 }
 
