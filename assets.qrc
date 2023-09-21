@@ -3,5 +3,6 @@
         <file>img/about.png</file>
         <file>img/close.png</file>
         <file>img/mytodo.png</file>
+        <file>database/myWallet.db</file>
     </qresource>
 </RCC>
