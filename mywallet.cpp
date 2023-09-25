@@ -64,21 +64,41 @@ void myWallet::listViewDados(){
             ui->tableWidget->setItem(i, 4, new QTableWidgetItem(query.value(6).toString() ) );//name category
 
             i++;
+
+
+            //definindo cabecalho
+            QStringList headers = {"ID", "Descrição", "Valor", "Data/Hora", "Categoria"};
+                                                                             ui->tableWidget->setHorizontalHeaderLabels(headers);
+
+            //para definir tamanho das Colunas:
+            ui->tableWidget->setColumnWidth(0, 60);//coluna 1 com 60 de largura
+            ui->tableWidget->setColumnWidth(1, 150);
+            ui->tableWidget->setColumnWidth(2, 150);
+            ui->tableWidget->setColumnWidth(3, 150);
+            ui->tableWidget->setColumnWidth(4, 150);
+
+            while(i <ui->tableWidget->rowCount()){
+                ui->tableWidget->removeRow(i);//para excluir todos os itens quando forem removidos da tabela, sem deixar tracos (vai dar um clear na tabela mostrada)
+            }
+
+            ui->tableWidget->verticalHeader()->setVisible(false);//para nao ter a numeracao de linha ao lado
         }
     }else{
         qDebug() << "Falha ao Consultar os Dados no Banco de Dados";
     }
 
+}
 
-    //definindo cabecalho
-    QStringList headers = {"ID", "Descrição", "Valor", "Data/Hora", "Categoria"};
-    ui->tableWidget->setHorizontalHeaderLabels(headers);
 
-    //para definir tamanho das Colunas:
-    ui->tableWidget->setColumnWidth(0, 60);//coluna 1 com 60 de largura
-    ui->tableWidget->setColumnWidth(1, 150);
-    ui->tableWidget->setColumnWidth(2, 150);
-    ui->tableWidget->setColumnWidth(3, 150);
-    ui->tableWidget->setColumnWidth(4, 150);
+void myWallet::on_pushButton_clicked(){
+    Add_data TelaAdd;
+
+    if(!db.isOpen()){
+        QMessageBox::warning(this, "Aviso", "Falha ao Conectar ao Banco de Dados");
+        return;
+    }
+
+    TelaAdd.exec();
+    listViewDados();
 }
 

@@ -9,13 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    add_data.cpp \
     main.cpp \
     mywallet.cpp
 
 HEADERS += \
+    add_data.h \
     mywallet.h
 
 FORMS += \
+    add_data.ui \
     mywallet.ui
 
 # Default rules for deployment.
