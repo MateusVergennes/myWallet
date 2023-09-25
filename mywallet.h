@@ -6,6 +6,7 @@
 #include <QtSql>
 #include <QFileInfo>//torna o banco de dados acessivel ao usuario,faz um backup do arquivo de recursos para um diretorio que o usuario acessa
 #include <QDebug>
+#include "add_data.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class myWallet; }
@@ -31,6 +32,8 @@ private slots:
     void on_actionSair_triggered();
 
     void on_actionSobre_N_s_triggered();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::myWallet *ui;
