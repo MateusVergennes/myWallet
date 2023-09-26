@@ -46,13 +46,14 @@ void myWallet::on_actionSobre_N_s_triggered(){
 
 void myWallet::listViewDados(){
     QSqlQuery query;
-    QString sql = "SELECT * FROM expenses INNER JOIN categories ON expenses.category_id = categories.category_id";
+    QString sql = "SELECT * FROM expenses INNER JOIN categories ON expenses.category_id = categories.category_id UNION ALL "
+                  "SELECT * FROM incomes INNER JOIN categories ON incomes.category_id = categories.category_id ORDER BY income_id DESC";
     query.prepare(sql);
 
     if(query.exec()){
         int i = 0;
 
-        ui->tableWidget->setColumnCount(5);//3 colunas(id, description, value)
+        ui->tableWidget->setColumnCount(5);// colunas(id, description, value)
         while(query.next()){
             ui->tableWidget->insertRow(i);//para mostrar os dados da linha
 
@@ -61,7 +62,20 @@ void myWallet::listViewDados(){
             ui->tableWidget->setItem(i, 1, new QTableWidgetItem(query.value(1).toString() ) );//descricao
             ui->tableWidget->setItem(i, 2, new QTableWidgetItem(query.value(2).toString() ) );//valor
             ui->tableWidget->setItem(i, 3, new QTableWidgetItem(query.value(4).toString() ) );//data
-            ui->tableWidget->setItem(i, 4, new QTableWidgetItem(query.value(6).toString() ) );//name category
+            ui->tableWidget->setItem(i, 4, new QTableWidgetItem(query.value(7).toString() ) );//name category
+
+            for (int j=0;j<5;j++){
+                if (query.value(5) == "incomes"){
+                    QColor backgroundColor;
+                    backgroundColor = QColor(255, 0, 0);//vermelho
+                    ui->tableWidget->item(i, j)->setBackground(backgroundColor);
+                }
+                if (query.value(5) == "expenses"){
+                    QColor backgroundColor;
+                    backgroundColor = QColor(0, 255, 0);//verde
+                    ui->tableWidget->item(i, j)->setBackground(backgroundColor);
+                }
+            }
 
             i++;
 

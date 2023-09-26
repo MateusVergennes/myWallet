@@ -6,6 +6,8 @@
 #include <QtSql>
 #include <QFileInfo>//torna o banco de dados acessivel ao usuario,faz um backup do arquivo de recursos para um diretorio que o usuario acessa
 #include <QDebug>
+#include <QColor>
+#include <QBrush>
 #include "add_data.h"
 
 QT_BEGIN_NAMESPACE
