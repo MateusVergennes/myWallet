@@ -10,15 +10,18 @@ CONFIG += c++17
 
 SOURCES += \
     add_data.cpp \
+    editar.cpp \
     main.cpp \
     mywallet.cpp
 
 HEADERS += \
     add_data.h \
+    editar.h \
     mywallet.h
 
 FORMS += \
     add_data.ui \
+    editar.ui \
     mywallet.ui
 
 # Default rules for deployment.

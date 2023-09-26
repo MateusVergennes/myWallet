@@ -9,6 +9,7 @@
 #include <QColor>
 #include <QBrush>
 #include "add_data.h"
+#include "editar.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class myWallet; }
@@ -36,6 +37,8 @@ private slots:
     void on_actionSobre_N_s_triggered();
 
     void on_pushButton_clicked();
+
+    void on_tableWidget_cellClicked(int row, int column);
 
 private:
     Ui::myWallet *ui;
