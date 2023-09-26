@@ -65,14 +65,14 @@ void myWallet::listViewDados(){
             ui->tableWidget->setItem(i, 4, new QTableWidgetItem(query.value(7).toString() ) );//name category
 
             for (int j=0;j<5;j++){
-                if (query.value(5) == "incomes"){
+                if (query.value(5) == "incomes"){//tipo de tabela se é de incomes(receita) ou expenses(Despesas)
                     QColor backgroundColor;
-                    backgroundColor = QColor(255, 0, 0);//vermelho
+                    backgroundColor = QColor(0, 255, 0);//verde
                     ui->tableWidget->item(i, j)->setBackground(backgroundColor);
                 }
                 if (query.value(5) == "expenses"){
                     QColor backgroundColor;
-                    backgroundColor = QColor(0, 255, 0);//verde
+                    backgroundColor = QColor(255, 0, 0);//vermelho
                     ui->tableWidget->item(i, j)->setBackground(backgroundColor);
                 }
             }
@@ -113,6 +113,32 @@ void myWallet::on_pushButton_clicked(){
     }
 
     TelaAdd.exec();
+    listViewDados();
+}
+
+
+void myWallet::on_tableWidget_cellClicked(int row, int column){
+    column = 0;
+    int id = ui->tableWidget->item(row, column)->text().toInt();//pega o a linha que foi clicada, a coluna 0(que é a do id) e como id é int, converte ele
+    QString description = ui->tableWidget->item(row, 1)->text();//para o conteudo da descricao
+
+    QTableWidgetItem *item = ui->tableWidget->item(row, column);
+    QBrush backgroundBrush;
+    QColor backgroundColor;
+    QString typeTable;
+    if (item) {
+        backgroundBrush = item->background();
+        backgroundColor = backgroundBrush.color();
+    }
+    if (backgroundColor.name() == "#ff0000"){//para saber de qual tabela pertence
+        typeTable = "expenses";
+    }else if(backgroundColor.name() == "#00ff00"){
+        typeTable = "incomes";
+    }else{
+        return;
+    }
+    Editar e(this, id, description, typeTable);
+    e.exec();//para abrir a janela .ui
     listViewDados();
 }
 
