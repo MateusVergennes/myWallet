@@ -47,7 +47,7 @@ void myWallet::on_actionSobre_N_s_triggered(){
 void myWallet::listViewDados(){
     QSqlQuery query;
     QString sql = "SELECT * FROM expenses INNER JOIN categories ON expenses.category_id = categories.category_id UNION ALL "
-                  "SELECT * FROM incomes INNER JOIN categories ON incomes.category_id = categories.category_id ORDER BY income_id DESC";
+                  "SELECT * FROM incomes INNER JOIN categories ON incomes.category_id = categories.category_id ORDER BY date DESC";
     query.prepare(sql);
 
     if(query.exec()){
@@ -57,11 +57,15 @@ void myWallet::listViewDados(){
         while(query.next()){
             ui->tableWidget->insertRow(i);//para mostrar os dados da linha
 
+            //tratamento para mostrar data ao usuario de maneira intuitiva
+            QString inputString = query.value(4).toString();
+            inputString.insert(2, '/').insert(5, '/').insert(10, ' ').insert(13, ':').insert(16, ':');
+
             //setando as colunas (aba mais de cima)
             ui->tableWidget->setItem(i, 0, new QTableWidgetItem(query.value(0).toString() ) );//Linha, coluna, valor como construtor //id // o new ja faz pegar o construtor
             ui->tableWidget->setItem(i, 1, new QTableWidgetItem(query.value(1).toString() ) );//descricao
             ui->tableWidget->setItem(i, 2, new QTableWidgetItem(query.value(2).toString() ) );//valor
-            ui->tableWidget->setItem(i, 3, new QTableWidgetItem(query.value(4).toString() ) );//data
+            ui->tableWidget->setItem(i, 3, new QTableWidgetItem(inputString               ) );//data
             ui->tableWidget->setItem(i, 4, new QTableWidgetItem(query.value(7).toString() ) );//name category
 
             for (int j=0;j<5;j++){
