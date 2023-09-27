@@ -121,6 +121,8 @@ void myWallet::on_tableWidget_cellClicked(int row, int column){
     column = 0;
     int id = ui->tableWidget->item(row, column)->text().toInt();//pega o a linha que foi clicada, a coluna 0(que é a do id) e como id é int, converte ele
     QString description = ui->tableWidget->item(row, 1)->text();//para o conteudo da descricao
+    QString valor = ui->tableWidget->item(row, 2)->text();
+    QString categoria = ui->tableWidget->item(row, 4)->text();
 
     QTableWidgetItem *item = ui->tableWidget->item(row, column);
     QBrush backgroundBrush;
@@ -137,7 +139,7 @@ void myWallet::on_tableWidget_cellClicked(int row, int column){
     }else{
         return;
     }
-    Editar e(this, id, description, typeTable);
+    Editar e(this, id, description, typeTable, valor, categoria);
     e.exec();//para abrir a janela .ui
     listViewDados();
 }
