@@ -8,6 +8,7 @@
 #include <QtSql>
 #include <QFileInfo>
 #include <QDebug>
+#include <QDateTime>
 #include "mywallet.h"
 
 namespace Ui {
@@ -22,6 +23,7 @@ public:
     explicit Add_data(QWidget *parent = nullptr);
     void comboBoxControl();
     int db_takeIdCategory();
+    QString getDateAndTimeNow();
     ~Add_data();
 
 private slots:

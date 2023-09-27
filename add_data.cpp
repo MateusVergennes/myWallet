@@ -50,6 +50,20 @@ int Add_data::db_takeIdCategory(){
         }
 }
 
+QString Add_data::getDateAndTimeNow(){
+        QDateTime UTC(QDateTime::currentDateTimeUtc());
+        QDateTime local(UTC.toLocalTime());
+
+        //dd/mm/yyy HH:MM:SS
+
+        QString formato = "ddMMyyyyhhmmss";
+        QString dataHoraLocal = local.toString(formato);
+
+        qDebug() << "Local: " << dataHoraLocal;
+
+        return dataHoraLocal;
+}
+
 Add_data::~Add_data(){
     delete ui;
 }
@@ -65,17 +79,13 @@ void Add_data::on_pb_add_clicked(){
         QMessageBox::warning(this, "Aviso", "Preencha o Campo Valor.");
         return;
     }
-    if(ui->le_data->text() == ""){
-        QMessageBox::warning(this, "Aviso", "Preencha o Campo Data.");
-        return;
-    }
     if(ui->te_description->toPlainText().isEmpty()){
         QMessageBox::warning(this, "Aviso", "Preencha o Campo Descrição.");
         return;
     }
 
     QString description = ui->te_description->toPlainText();
-    QString date = ui->le_data->text();
+    QString date = getDateAndTimeNow();
     QString amount = ui->le_valor->text();
 
     if (ui->rb_receita->isChecked()){
@@ -116,4 +126,3 @@ void Add_data::on_pb_add_clicked(){
         QMessageBox::critical(this, "Falha", notSelect_rb);
     }
 }
-
