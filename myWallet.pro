@@ -12,17 +12,20 @@ SOURCES += \
     add_data.cpp \
     editar.cpp \
     main.cpp \
-    mywallet.cpp
+    mywallet.cpp \
+    planejamentos.cpp
 
 HEADERS += \
     add_data.h \
     editar.h \
-    mywallet.h
+    mywallet.h \
+    planejamentos.h
 
 FORMS += \
     add_data.ui \
     editar.ui \
-    mywallet.ui
+    mywallet.ui \
+    planejamentos.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
