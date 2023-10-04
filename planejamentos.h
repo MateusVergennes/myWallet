@@ -15,6 +15,9 @@ public:
     explicit Planejamentos(QWidget *parent = nullptr);
     ~Planejamentos();
 
+private slots:
+    void on_le_newCat_selectionChanged();
+
 private:
     Ui::Planejamentos *ui;
 };

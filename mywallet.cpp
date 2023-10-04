@@ -148,3 +148,15 @@ void myWallet::on_tableWidget_cellClicked(int row, int column){
     listViewDados();
 }
 
+
+void myWallet::on_pushButton_3_clicked(){
+    Planejamentos TelaPlanejamentos;
+
+    if(!db.isOpen()){
+        QMessageBox::warning(this, "Aviso", "Falha ao Conectar ao Banco de Dados");
+        return;
+    }
+
+    TelaPlanejamentos.exec();
+}
+

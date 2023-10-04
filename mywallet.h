@@ -10,6 +10,7 @@
 #include <QBrush>
 #include "add_data.h"
 #include "editar.h"
+#include "planejamentos.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class myWallet; }
@@ -39,6 +40,8 @@ private slots:
     void on_pushButton_clicked();
 
     void on_tableWidget_cellClicked(int row, int column);
+
+    void on_pushButton_3_clicked();
 
 private:
     Ui::myWallet *ui;

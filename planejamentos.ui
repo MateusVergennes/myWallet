@@ -72,7 +72,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Adicione o Nome da Categoria</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="pb_editCat">
